@@ -1,10 +1,10 @@
-# wx-store
+# easy-store
 参考vuex为小程序增加状态管理并提供页面间通信接口
 
 ## 使用
 ```javascript
 // app.js
-import Store from 'wx-store';
+import Store from './easy-store';
 
 const store = new Store({
     state: {

@@ -1,0 +1,18 @@
+.wrap {
+    padding: 50rpx 30rpx;
+   
+}
+
+.swan-spider-tap[type='primary']{
+    margin: 30rpx 0rpx;
+}
+
+
+.fixed{
+    position: fixed;
+    bottom: 0rpx;
+    left: 0rpx;
+    width: 700rpx;
+    height:100rpx;
+    background: blue;
+}

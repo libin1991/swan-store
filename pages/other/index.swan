@@ -1,0 +1,13 @@
+<view class="wrap">
+    <button type="primary" bindtap="previewImage">previewImage</button>
+    <button type="primary" bindtap="previewOriginImage">previewOriginImage</button>
+</view>
+
+
+<view class="fixed"></view>
+
+
+
+
+<view>{{$state.counter}}</view>
+<view>{{$state.num}}</view>

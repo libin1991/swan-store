@@ -1,0 +1,12 @@
+.view-more{
+    width: 750rpx;
+    height: 300rpx;
+    line-height: 300rpx;
+    color: white;
+    text-align: center;
+    background: red;
+    position: relative;
+    left: 0rpx;
+    top: 0rpx;
+}
+ 

@@ -1,0 +1,15 @@
+<view s-for="item in items" class="single-item" bind:tap="oneItemClick" bind:touchstart="oneItemTouchStart"
+	bind:touchmove="oneItemTouchmove" bind:touchcancel="oneItemTouchcancel" bind:touchend="oneItemTouchEnd">
+	<view>{{item}}</view>
+</view>
+<view class="view-more" bind:tap="loadMore">
+	<text class="text">点击加载更多{{name}} {{number}}</text>
+</view>
+
+
+<view s-if="flag">如果为flag为true，你看得到我。</view>
+
+
+
+<view>{{$state.counter}}</view>
+<view>{{$state.num}}</view>

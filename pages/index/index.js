@@ -32,15 +32,13 @@ Page({
     },
     loadMore(e) {
         // console.log(this.data.$state.counter);
-
+        console.log(this.data);
         app.store.commit('addarr', 1);
         app.store.dispatch('countAsync', 5);
         console.log(app.store);
         // app.store.replaceState({
         //     counter: 955
         // });
-
-
 
         // app.store.setState({
         //     counter: 955

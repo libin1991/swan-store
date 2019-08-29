@@ -64,7 +64,7 @@ export default class Store {
         }
         if (Object.keys(this.getters).length > 0) {
             Object.keys(this.getters).map((item, index) => {
-                this.getter[item] = this.getters[item](this.state)
+                this.$getter[item] = this.getters[item](this.state)
             })
         }
         this._pages.forEach(page => {

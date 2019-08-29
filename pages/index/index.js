@@ -16,8 +16,16 @@ Page({
     },
     onLoad() {
         app.store.install(this);
+        var i = 0;
+        var a = app.store.subscribe((type, state) => {
+            i++;
+            console.log(type, state);
+            // console.log(i);
+            // if (i > 3) a();
+        });
+
         console.log(this.data);
-        console.log(app);
+        // console.log(app);
         // 监听页面加载的生命周期函数
         // console.log(getCurrentPages()); // [{...}]
         // console.log(My.B(100, 9));
@@ -25,9 +33,14 @@ Page({
     loadMore(e) {
         // console.log(this.data.$state.counter);
 
-        app.store.commit('count', 1);
-
+        app.store.commit('addarr', 1);
         app.store.dispatch('countAsync', 5);
+        console.log(app.store.getter);
+        // app.store.replaceState({
+        //     counter: 955
+        // });
+
+
 
         // app.store.setState({
         //     counter: 955

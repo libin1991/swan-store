@@ -3,7 +3,8 @@ import Store from './vuex/index';
 const store = new Store({
     state: {
         counter: 0,
-        num: 110
+        num: 110,
+        arr: [1, 2, 3, 4, 5, 6, 7]
     },
     mutations: {
         count(state, payload) {
@@ -11,6 +12,9 @@ const store = new Store({
         },
         count1(state, payload) {
             return state.num += payload;
+        },
+        addarr(state, payload) {
+            return state.arr.push(payload);
         },
     },
     actions: {
@@ -22,6 +26,11 @@ const store = new Store({
                 }, 1000);
             });
         },
+    },
+    getters: {
+        arrLength: (state) => {
+            return state.arr.length;
+        }
     }
 });
 
@@ -36,7 +45,7 @@ App({
     },
     onLaunch(options) {
         // console.log(options);
-        console.log(this);
+        // console.log(this);
         if (swan.canIUse('showFavoriteGuide')) {
             swan.showFavoriteGuide({
                 type: 'bar',

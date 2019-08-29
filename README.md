@@ -1,5 +1,46 @@
 # easy-store
-参考vuex为小程序增加状态管理并提供页面间通信接口
+参考vuex API为小程序增加状态管理并提供页面间通信接口
+
+###  APi
+
+```
+app.store.install(this);    // 注册使用 当前页面连接vuex
+         
+console.log(this.data.$state.counter); 
+console.log(app.store.getter);      // 获取getter
+
+app.store.commit('count', 1);     // 触发同步事件
+app.store.dispatch('countAsync', 1).then(() => {   // 触发异步事件
+    app.store.setState({
+        counter: 955
+    });
+});
+
+app.store.replaceState({   // 替换store
+    counter: 955
+});
+
+app.postMessage('other', {   // 跨页面通信，事件总线精简版
+    type: 'msg',
+    data: 'message from page1'
+});
+
+var subscribe = app.store.subscribe((type, state) => {    // 订阅commit日志打印
+    console.log(type, state);
+});
+
+subscribe();   // 清除subscribe 订阅
+```
+
+### 模板取值
+> **state和getter前用$**
+
+```html
+<view>{{$state.counter}}</view>
+<view>{{$state.arr}}</view>
+<view>{{$getter.arrLength}}</view>
+```
+
 
 ## 使用
 ```javascript
@@ -9,6 +50,7 @@ import Store from './easy-store';
 const store = new Store({
     state: {
         counter: 0,
+        arr: [1, 2, 3, 4, 5, 6, 7]
     },
     mutations: {
         count(state, payload) {
@@ -24,6 +66,11 @@ const store = new Store({
                 }, 2000);
             });
         },
+    },
+    getters: {
+        arrLength: (state) => {
+            return state.arr.length;
+        }
     }
 });
 
@@ -35,14 +82,19 @@ App({
 
 // page1
 <view>{{$state.counter}}</view>
+<view>{{$state.arr}}</view>
+<view>{{$getter.arrLength}}</view>
+
+
 
 const app = getApp();
 Page({
     onLoad() {
     
-        app.store.install(this);    // 注册使用 
+        app.store.install(this);    // 注册使用 当前页面连接vuex
          
-        console.log(this.data.$state.counter);
+        console.log(this.data.$state.counter); 
+        console.log(app.store.getter);      // 获取getter
 
         app.store.commit('count', 1);
         app.store.dispatch('countAsync', 1).then(() => {
@@ -51,23 +103,35 @@ Page({
             });
         });
 
-        app.postMessage('page2', {
+        app.store.replaceState({
+            counter: 955
+        });
+
+        app.postMessage('other', {
             type: 'msg',
             data: 'message from page1'
         });
     }
 });
 
+
+
 // page2
 <view>{{$state.counter}}</view>
+<view>{{$state.arr}}</view>
+<view>{{$getter.arrLength}}</view>
+
 
 Page({
     onLoad() {
         app.store.install(this);    // 注册使用 
         console.log(this.data.$state.counter);
     },
-    onMessage(data) {
+    onMessage(data) {   // 接受外部通信事件，类似于浏览器postMessage
         console.log(data);
     }
 });
 ```
+
+
+

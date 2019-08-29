@@ -36,6 +36,7 @@ Page({
         app.store.commit('addarr', 1);
         app.store.dispatch('countAsync', 5);
         console.log(app.store);
+        console.log(app.store.getter);
         // app.store.replaceState({
         //     counter: 955
         // });

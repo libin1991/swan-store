@@ -1,6 +1,6 @@
 /*
  * 类似vuex中的接口进行状态管理
- * 利用postMessage和onMessage的方式进行页面间通信
+ * 利用postMessage和onMessage的方式进行跨页面间通信,类似浏览器的postMessage
  */
 
 function getShortRoute(route) {
@@ -43,7 +43,7 @@ export default class Store {
     install(page) {   //  let index = this._pages.indexOf(page) 无效
         page._shortRoute = getShortRoute(page.route);
         let index = this._pages.findIndex((item) => {
-            return item.route == page.route;
+            return item.route === page.route;
         });
         if (index > -1) {
             this._pages.splice(index, 1);
@@ -54,7 +54,7 @@ export default class Store {
 
     uninstall(page) {
         let index = this._pages.findIndex((item) => {
-            return item.route == page.route;
+            return item.route === page.route;
         });
         if (index > -1) {
             this._pages.splice(index, 1);

@@ -42,7 +42,7 @@ subscribe();   // 清除subscribe 订阅
 ```
 
 
-## 使用
+### 使用
 ```javascript
 // app.js
 import Store from './easy-store';

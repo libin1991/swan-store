@@ -29,7 +29,6 @@ export default class Store {
         this._pages = [];
         this._messages = [];
         this._subscribers = [];
-
         this.$getter = {};
     }
 
@@ -41,14 +40,22 @@ export default class Store {
         throw new Error('getter is read-only');
     }
 
-    install(page) {
+    install(page) {   //  let index = this._pages.indexOf(page) 无效
         page._shortRoute = getShortRoute(page.route);
+        let index = this._pages.findIndex((item) => {
+            return item.route == page.route;
+        });
+        if (index > -1) {
+            this._pages.splice(index, 1);
+        }
         this._pages.unshift(page);
         this.setState();
     }
 
     uninstall(page) {
-        let index = this._pages.indexOf(page);
+        let index = this._pages.findIndex((item) => {
+            return item.route == page.route;
+        });
         if (index > -1) {
             this._pages.splice(index, 1);
         }

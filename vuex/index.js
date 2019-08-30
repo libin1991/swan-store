@@ -4,7 +4,7 @@
  */
 
 function getShortRoute(route) {
-    return route.replace(/^\/?\w+\/(\w+)\/.+/gi, '$1');
+    return route.match(/\/(.+)\//)[1];
 }
 
 function genericSubscribe(fn, subs) {
@@ -34,7 +34,7 @@ export default class Store {
     }
 
     get getter() {
-        return this.$getter
+        return this.$getter;
     }
 
     set getter(v) {
@@ -64,8 +64,8 @@ export default class Store {
         }
         if (Object.keys(this.getters).length > 0) {
             Object.keys(this.getters).map((item, index) => {
-                this.$getter[item] = this.getters[item](this.state)
-            })
+                this.$getter[item] = this.getters[item](this.state);
+            });
         }
         this._pages.forEach(page => {
             page.setData({
@@ -80,7 +80,7 @@ export default class Store {
         let result = mutation && mutation(this.state, payload);
         this.setState();
         // 触发订阅
-        this._subscribers.forEach(sub => sub(type, this.state))
+        this._subscribers.forEach(sub => sub(type, this.state));
         return result;
     }
 
@@ -96,8 +96,6 @@ export default class Store {
             routes = [routes];
         }
         routes.forEach(route => {
-            route = getShortRoute(route);
-
             if (!lazy) {
                 routeAlive = false;
                 this._pages.forEach(page => {

@@ -154,8 +154,8 @@ export default class Store {
         Object.keys(obj).forEach(key => {
             this.defineReactive(ctx.data, key, ctx.data[key], function (value) {
                 obj[key].call(ctx, value);
-            })
-        })
+            });
+        });
     }
 
     computed(ctx, obj = {}) {
@@ -163,16 +163,18 @@ export default class Store {
         let dataKeys = Object.keys(ctx.data);
 
         dataKeys.forEach(dataKey => {
-            this.defineReactive(ctx.data, dataKey, ctx.data[dataKey])
+            this.defineReactive(ctx.data, dataKey, ctx.data[dataKey]);
         });
 
         let firstComputedObj = keys.reduce((prev, next) => {
-            ctx.data.$_computed_target = function () {
-                ctx.setData({ [next]: obj[next].call(ctx) });
-            }
-            prev[next] = obj[next].call(ctx)
-            delete ctx.data.$_computed_target;
-            return prev
+            ctx.data.ComputedTarget = function () {
+                ctx.setData({
+                    [next]: obj[next].call(ctx)
+                });
+            };
+            prev[next] = obj[next].call(ctx);
+            delete ctx.data.ComputedTarget;
+            return prev;
         }, {});
 
         ctx.setData(firstComputedObj);
@@ -184,21 +186,25 @@ export default class Store {
             configurable: true,
             enumerable: true,
             get: function () {
-                if (data.$_computed_target) {
-                    that.subs.push(data.$_computed_target)
+                if (data.ComputedTarget) {
+                    that.subs.push(data.ComputedTarget);
                 }
                 return val;
             },
             set: function (newVal) {
-                if (newVal === val) return;
+                if (newVal === val) {
+                    return;
+                };
+
                 fn && fn(newVal);
+
                 if (that.subs.length) {
                     setTimeout(() => {
-                        that.subs.forEach(sub => sub())
+                        that.subs.forEach(sub => sub());
                     }, 0);
                 }
-                val = newVal
+                val = newVal;
             }
-        })
+        });
     }
 }

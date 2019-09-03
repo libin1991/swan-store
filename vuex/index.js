@@ -31,7 +31,7 @@ export default class Store {
         this._subscribers = [];
         this.$getter = {};
 
-        this.subs = [];
+        this.subs = [];   // 存储计算属性订阅函数
     }
 
     get getter() {

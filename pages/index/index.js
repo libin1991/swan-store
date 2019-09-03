@@ -3,16 +3,33 @@ const My = require('my.js');
 
 Page({
     data: {
-        number: 0,
-        name: 'SWAN',
-        userInfo: {},
-        hasUserInfo: false,
-        canIUse: swan.canIUse('button.open-type.getUserInfo'),
-        items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        flag: true,
-        person: { name: 'Lebron James', pos: 'SF', age: 33 },
-        teams: ['Cleveland Cavaliers', 'Miami Heat', 'Los Angeles Lakers'],
-        tag: 'basketball'
+        // number: 0,
+        // name: 'SWAN',
+        // userInfo: {},
+        // hasUserInfo: false,
+        // canIUse: swan.canIUse('button.open-type.getUserInfo'),
+        // items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        // flag: true,
+        // person: { name: 'Lebron James', pos: 'SF', age: 33 },
+        // teams: ['Cleveland Cavaliers', 'Miami Heat', 'Los Angeles Lakers'],
+        tag: 'basketball',
+        test: {
+            a: 100,
+            b: 200
+        }
+    },
+    computed: {
+        test2() {
+            return this.data.test.a + 'Test2'
+        },
+        test3() {
+            return this.data.test.b + 'Test3'
+        }
+    },
+    watch: {
+        tag(newVal) {
+            console.log('test发生变化');
+        }
     },
     onLoad() {
         app.store.install(this);
@@ -23,20 +40,30 @@ Page({
             // console.log(i);
             // if (i > 3) a();
         });
+        a();
 
-        console.log(this.data);
+        // console.log(this.data);
         // console.log(app);
         // 监听页面加载的生命周期函数
         // console.log(getCurrentPages()); // [{...}]
         // console.log(My.B(100, 9));
     },
     loadMore(e) {
+
+        this.setData({
+            test: {
+                a: 108 + '-' + Math.random(0, 1),
+                b: 209 + '-' + Math.random(0, 1)
+            },
+            tag: Math.random(0, 1)
+        });
+
         // console.log(this.data.$state.counter);
-        console.log(this.data);
-        app.store.commit('addarr', 1);
-        app.store.dispatch('countAsync', 5);
-        console.log(app.store);
-        console.log(app.store.getter);
+        // console.log(this.data);
+        //app.store.commit('addarr', 1);
+        //app.store.dispatch('countAsync', 5);
+        // console.log(app.store);
+        // console.log(app.store.getter);
         // app.store.replaceState({
         //     counter: 955
         // });
@@ -51,9 +78,6 @@ Page({
         //         data: 'message from page1'
         //     });
         // }, 2000);
-
-
-
         return;
         console.log(this);
         console.log('加载更多被点击');

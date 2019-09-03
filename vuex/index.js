@@ -30,6 +30,8 @@ export default class Store {
         this._messages = [];
         this._subscribers = [];
         this.$getter = {};
+
+        this.subs = [];
     }
 
     get getter() {
@@ -49,6 +51,10 @@ export default class Store {
             this._pages.splice(index, 1);
         }
         this._pages.unshift(page);
+
+        this.computed(page, page.computed);
+        this.watch(page, page.watch);
+
         this.setState();
     }
 
@@ -142,5 +148,57 @@ export default class Store {
 
     subscribe(fn) {
         return genericSubscribe(fn, this._subscribers)
+    }
+
+    watch(ctx, obj = {}) {  // 由于setData是覆盖式更新,所以没必要递归添加监听
+        Object.keys(obj).forEach(key => {
+            this.defineReactive(ctx.data, key, ctx.data[key], function (value) {
+                obj[key].call(ctx, value);
+            })
+        })
+    }
+
+    computed(ctx, obj = {}) {
+        let keys = Object.keys(obj);
+        let dataKeys = Object.keys(ctx.data);
+
+        dataKeys.forEach(dataKey => {
+            this.defineReactive(ctx.data, dataKey, ctx.data[dataKey])
+        });
+
+        let firstComputedObj = keys.reduce((prev, next) => {
+            ctx.data.$_computed_target = function () {
+                ctx.setData({ [next]: obj[next].call(ctx) });
+            }
+            prev[next] = obj[next].call(ctx)
+            delete ctx.data.$_computed_target;
+            return prev
+        }, {});
+
+        ctx.setData(firstComputedObj);
+    }
+
+    defineReactive(data, key, val, fn) {
+        const that = this;
+        Object.defineProperty(data, key, {
+            configurable: true,
+            enumerable: true,
+            get: function () {
+                if (data.$_computed_target) {
+                    that.subs.push(data.$_computed_target)
+                }
+                return val;
+            },
+            set: function (newVal) {
+                if (newVal === val) return;
+                fn && fn(newVal);
+                if (that.subs.length) {
+                    setTimeout(() => {
+                        that.subs.forEach(sub => sub())
+                    }, 0);
+                }
+                val = newVal
+            }
+        })
     }
 }

@@ -1,5 +1,6 @@
 # easy-store
-参考vuex API为小程序增加状态管理并提供页面间通信接口
+
+参考vuex API为小程序增加状态管理并提供页面间通信接口,**支持watch和computed功能**
 
 ###  APi
 
@@ -85,10 +86,33 @@ App({
 <view>{{$state.arr}}</view>
 <view>{{$getter.arrLength}}</view>
 
+<view>{{tag}}</view>
+
+<view>{{test2}}</view>    // 计算属性
+<view>{{test3}}</view>    // 计算属性
 
 
 const app = getApp();
-Page({
+Page({data: {
+        tag: '测试',
+        test: {
+            a: 100,
+            b: 200
+        }
+    },
+    computed: {   // 计算属性
+        test2() {
+            return this.data.test.a + 'Test2'
+        },
+        test3() {
+            return this.data.test.b + 'Test3'
+        }
+    },
+    watch: {
+        tag(newVal) {
+            console.log('test发生变化');
+        }
+    },
     onLoad() {
     
         app.store.install(this);    // 注册使用 当前页面连接vuex

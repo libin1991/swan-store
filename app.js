@@ -1,6 +1,5 @@
 import Store from './vuex/index';
-
-const store = new Store({
+  const store = new Store({
     state: {
         counter: 0,
         num: 110,

@@ -37,10 +37,10 @@ Page({
         var a = app.store.subscribe((type, state) => {
             i++;
             console.log(type, state);
-            // console.log(i);
+             console.log(i);
             // if (i > 3) a();
         });
-        a();
+        // a();
 
         // console.log(this.data);
         // console.log(app);

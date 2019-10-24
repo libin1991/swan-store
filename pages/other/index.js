@@ -1,12 +1,17 @@
 const app = getApp();
 Page({
+    data: {
+        arr: app.globalData.arr
+    },
     onMessage(data) {
         console.log(data);
     },
     onLoad() {
         app.store.install(this);
         console.log(this.data.$state.counter);
-
+        this.setData({
+            arr: app.globalData.arr
+        });
         return;
         swan.getSystemInfo({
             success: res => {
@@ -52,5 +57,9 @@ Page({
                 console.log('previewImage fail', err);
             }
         });
+    },
+    clickMe() {
+        console.log(app.globalData.arr);
+
     }
 });

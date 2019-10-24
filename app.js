@@ -1,5 +1,5 @@
 import Store from './vuex/index';
-  const store = new Store({
+const store = new Store({
     state: {
         counter: 0,
         num: 110,
@@ -33,6 +33,11 @@ import Store from './vuex/index';
     }
 });
 
+
+
+
+
+
 App({
     store,
     // 简化postMessage调用
@@ -40,7 +45,8 @@ App({
     globalData: {
         name: '百度小程序',
         version: 12.01,
-        mob: 'ios'
+        mob: 'ios',
+        arr: [1]
     },
     onLaunch(options) {
         // console.log(options);

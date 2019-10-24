@@ -1,20 +1,36 @@
-<view s-for="item in items" class="single-item" bind:tap="oneItemClick" bind:touchstart="oneItemTouchStart"
-	bind:touchmove="oneItemTouchmove" bind:touchcancel="oneItemTouchcancel" bind:touchend="oneItemTouchEnd">
+<view s-for="item in items" 
+    class="single-item" 
+    bind:tap="oneItemClick" 
+	bind:touchstart="oneItemTouchStart"
+	bind:touchmove="oneItemTouchmove" 
+	bind:touchcancel="oneItemTouchcancel" 
+	bind:touchend="oneItemTouchEnd">
 	<view>{{item}}</view>
 </view>
+
 <view class="view-more" bind:tap="loadMore">
 	<text class="text">点击加载更多{{name}} {{number}}</text>
 </view>
 
+<view class="view-more" bind:tap="previewImage">
+	<text class="text">previewImage</text>
+</view>
 
 <view s-if="flag">如果为flag为true，你看得到我。</view>
 
-<!-- <view>{{$state.counter}}</view>
+ <view>{{$state.counter}}</view>
 <view>{{$state.num}}</view>
 <view>{{$state.arr}}</view>
-<view>{{$getter.arrLength}}</view> -->
+<view>{{$getter.arrLength}}</view> 
 
 <view>{{tag}}</view>
 
 <view>{{test2}}</view>
 <view>{{test3}}</view>
+
+
+<view bind:tap="viewImg">
+<image src="http://ppic.meituba.com:84/uploads/allimg/2018/01/26/203_10128.jpg" mode="scaleToFill" binderror="" bindload=""></image>
+<image src="http://ppic.meituba.com:84/uploads/allimg/2018/01/26/203_10120.jpg" mode="widthFix" binderror="" bindload=""></image>
+<image src="http://ppic.meituba.com:84/uploads/allimg/2018/04/17/5193.jpg" mode="widthFix" binderror="" bindload=""></image>
+</view>

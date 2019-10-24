@@ -4,7 +4,7 @@
 </view>
 
 
-<view class="fixed"></view>
+<view class="fixed" bindtap='clickMe'></view>
 
 
 
@@ -12,3 +12,5 @@
 <view>{{$state.num}}</view>
 <view>{{$state.arr}}</view>
 <view>{{$getter.arrLength}}</view>
+
+<view>{{arr}}</view>

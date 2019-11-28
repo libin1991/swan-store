@@ -14,7 +14,7 @@ export default new Store({
             return state.num += payload;
         },
         addarr(state, payload) {
-            return state.test = payload;
+            state.test = payload;
         },
     },
     actions: {
@@ -28,7 +28,7 @@ export default new Store({
         },
     },
     getters: {
-        arrLength: (state) => {
+        arrLength(state) {
             return state.arr.length;
         }
     }

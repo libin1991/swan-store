@@ -12,7 +12,7 @@
 	<text class="text">点击加载更多{{name}} {{number}}</text>
 </view>
 
-<view class="view-more" bind:tap="previewImage">
+<view class="view-more hide" bind:tap="previewImage">
 	<text class="text">previewImage</text>
 </view>
 
@@ -29,7 +29,11 @@
 <view>{{test3}}</view>
 
 
-<view bind:tap="viewImg">
+<view class="view-more" bind:tap="jump">
+	<text class="text">跳转outher页</text>
+</view>
+
+<view bind:tap="viewImg" class='hide'>
 <image src="http://ppic.meituba.com:84/uploads/allimg/2018/01/26/203_10128.jpg" mode="scaleToFill" binderror="" bindload=""></image>
 <image src="http://ppic.meituba.com:84/uploads/allimg/2018/01/26/203_10120.jpg" mode="widthFix" binderror="" bindload=""></image>
 <image src="http://ppic.meituba.com:84/uploads/allimg/2018/04/17/5193.jpg" mode="widthFix" binderror="" bindload=""></image>

@@ -1,4 +1,5 @@
 const app = getApp();
+import Store from '../../store/swan-store';
 Page({
     data: {
         arr: app.globalData.arr
@@ -7,8 +8,17 @@ Page({
         console.log(data);
     },
     onLoad() {
-        app.store.install(this);
-        console.log(this.data.$state.counter);
+        console.log(Store);
+        Store.install(this);
+
+        // console.log(Store.install);
+
+        //  console.log(this.data.$state.counter);
+
+
+        console.log(this.data.$state);
+
+
         this.setData({
             arr: app.globalData.arr
         });

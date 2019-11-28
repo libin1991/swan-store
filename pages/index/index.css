@@ -9,3 +9,8 @@
     left: 0rpx;
     top: 0rpx;
 }
+
+
+.hide {
+    display: none !important;
+}

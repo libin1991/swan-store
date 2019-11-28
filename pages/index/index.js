@@ -1,5 +1,9 @@
 const app = getApp()
 const My = require('my.js');
+import Store from '../../store/swan-store';
+
+
+console.log(Store);
 
 Page({
     data: {
@@ -30,14 +34,15 @@ Page({
         }
     },
     watch: {
-        tag(newVal) {
+        test(newVal) {
             console.log('test发生变化', newVal);
+
         }
     },
     onLoad() {
-        app.store.install(this);
+        Store.install(this);
         var i = 0;
-        var a = app.store.subscribe((type, state) => {
+        var a = Store.subscribe((type, state) => {
             i++;
             console.log(type, state);
             console.log(i);
@@ -56,26 +61,28 @@ Page({
 
     },
     loadMore(e) {
-
+        const a = '$' + Math.random(0, 1);
+        const b = '$' + Math.random(0, 1);
+        Store.commit('addarr', [a, b]);
         this.setData({
             test: {
-                a: 108 + '-' + Math.random(0, 1),
-                b: 209 + '-' + Math.random(0, 1)
+                a,
+                b
             },
             tag: Math.random(0, 1)
         });
 
         // console.log(this.data.$state.counter);
         // console.log(this.data);
-        //app.store.commit('addarr', 1);
-        //app.store.dispatch('countAsync', 5);
-        // console.log(app.store);
-        // console.log(app.store.getter);
-        // app.store.replaceState({
+        //Store.commit('addarr', 1);
+        //Store.dispatch('countAsync', 5);
+        // console.log(Store);
+        // console.log(Store.getter);
+        // Store.replaceState({
         //     counter: 955
         // });
 
-        // app.store.setState({
+        // Store.setState({
         //     counter: 955
         // });
 
@@ -91,14 +98,11 @@ Page({
         console.log(app);
         console.log(this.getData('items'));
         this.setData({
-            items: [...this.data.items, 123],
-            flag: false
+            // items: [...this.data.items, 123],
+            flag: !this.data.flag
         }, () => {
             console.log(swan);
-            this.doSth();
-            swan.showToast({
-                title: '我是标题'
-            });
+            // this.doSth();
         })
     },
     onTabItemTap(item) {
@@ -178,5 +182,10 @@ Page({
     },
     viewImg(e) {
         console.log(e);
+    },
+    jump() {
+        swan.navigateTo({
+            url: '/pages/other/index'
+        });
     }
 })

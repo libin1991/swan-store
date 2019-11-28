@@ -13,4 +13,7 @@
 <view>{{$state.arr}}</view>
 <view>{{$getter.arrLength}}</view>
 
+<view class='test'>{{$state.test[0]}}</view>
+<view class='test'>{{$state.test[1]}}</view>
+
 <view>{{arr}}</view>
